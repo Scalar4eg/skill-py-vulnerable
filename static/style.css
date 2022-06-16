@@ -13,20 +13,16 @@ body {
     background: #fff;
 }
 
-.popup {
+.content {
     position: fixed;
     top: 50%;
     left: 50%;
     -webkit-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
     padding: 15px;
-}
-
-#login {
     background: #f8f8f8;
     border: 3px solid var(--border-color);
     text-align: center;
-
 }
 
  input {
@@ -51,4 +47,21 @@ div.version {
 div.version::after {
     content: "SkillPyVulnerable v0.1";
     color: var(--border-color);
+}
+
+.wall {
+    margin-top:45px;
+    padding: 20px;
+    border: 1px solid silver;
+    background: coral;
+    color: #732121;
+    font-weight: bolder;
+    text-transform: uppercase;
+}
+
+.wall.empty::after {
+    content: "[wall is empty]";
+    font-weight: lighter;
+    color: cornsilk;
+    text-transform: lowercase;
 }

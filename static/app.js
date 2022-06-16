@@ -24,5 +24,4 @@ window.addEventListener('load', (event) => {
             makeLogin();
         }
     });
-
 })

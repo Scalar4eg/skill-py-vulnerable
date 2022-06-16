@@ -13,8 +13,9 @@ from memory_session import start_session, load_session, session_exists, drop_ses
 app = Flask(__name__, static_url_path='/', static_folder='./')
 app.config['SECRET_KEY'] = token_urlsafe(32)
 
-
-
+WALL = {
+    "text": ""
+}
 
 def run_app():
     load_dotenv()
@@ -29,6 +30,12 @@ def get_login():
     return environ.get("VULNERABLE_LOGIN")
 
 
+@app.route("/wall")
+def wall():
+    return render_template("drawing-wall.html")
+
+
+
 @app.route("/")
 def index():
     return redirect("/login")
@@ -38,11 +45,15 @@ def index():
 def login_page():
     return render_template("login.html")
 
+@app.route("/api/wall")
+def wall():
+    global WALL_TEXT
+    WALL_TEXT = request.form["wall_text"]
 
 @app.route("/api/login-with-password", methods=['POST'])
 def login_with_password():
     if is_banned():
-        error =  f"IP {request.remote_addr} Banned"
+        error = f"IP {request.remote_addr} Banned"
         print(error)
         return error, 500
     login = request.form["login"]
