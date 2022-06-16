@@ -44,4 +44,4 @@ def session_exists() -> bool:
     return __get_sid() in mem_storage
 
 
-mem_storage: dict[str, MemSession] = {}
+mem_storage = {}

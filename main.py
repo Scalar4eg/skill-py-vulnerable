@@ -1,3 +1,4 @@
+import time
 import uuid
 from os import environ
 from secrets import token_urlsafe
@@ -6,15 +7,18 @@ from dotenv import load_dotenv
 
 from flask import Flask, redirect, render_template, request
 
+from ip_ban import failed_attempt, is_banned
 from memory_session import start_session, load_session, session_exists, drop_session
 
 app = Flask(__name__, static_url_path='/', static_folder='./')
 app.config['SECRET_KEY'] = token_urlsafe(32)
 
 
+
+
 def run_app():
     load_dotenv()
-    app.run()
+    app.run(host=environ.get("APP_HOST"), port=environ.get("APP_PORT"))
 
 
 def get_password():
@@ -37,20 +41,25 @@ def login_page():
 
 @app.route("/api/login-with-password", methods=['POST'])
 def login_with_password():
+    if is_banned():
+        error =  f"IP {request.remote_addr} Banned"
+        print(error)
+        return error, 500
     login = request.form["login"]
     password = request.form["password"]
     print(login, password)
     if login == get_login() and password == get_password():
         start_session()
-        return {"result": True, "redirect": "/admin-panel"}
+        return {"result": True, "redirect": "/secret-page"}
     else:
+        failed_attempt()
         return {"result": False}
 
 
-@app.route("/admin-panel")
-def admin_panel():
+@app.route("/secret-page")
+def secret_page():
     if session_exists():
-        return render_template("admin-panel.html", my_secret=environ.get("MY_SECRET"))
+        return render_template("secret-page.html", my_secret=environ.get("MY_SECRET"))
     else:
         return redirect("/login")
 
