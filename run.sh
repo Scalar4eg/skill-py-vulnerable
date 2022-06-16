@@ -1,0 +1,1 @@
+FLASK_ENV=development nohup python3 main.py >app.log 2>&1 &
