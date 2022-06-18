@@ -10,6 +10,10 @@ window.addEventListener('load', (event) => {
             } else {
                 wall.classList.remove('empty')
             }
+            const payload = new FormData(document.forms[0]);
+            fetch("/api/wall", {method: 'POST', body: payload})
+            event.preventDefault();
+            return false;
         }
     });
 })

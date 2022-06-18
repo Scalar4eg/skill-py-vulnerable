@@ -17,5 +17,4 @@ def is_banned():
     ip = request.remote_addr
     if ip not in IP_LIST:
         return False
-
     return IP_LIST[ip] > IP_MAX_FAILS

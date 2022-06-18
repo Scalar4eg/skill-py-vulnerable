@@ -10,10 +10,12 @@
 <div class="version"></div>
 <div class="content">
     <h1>Draw on the wall</h1>
-    <input type="text" name="drawing" placeholder="Your text goes here" />
+    <form>
+        <input type="text" name="wall_text" placeholder="Your text goes here" />
+    </form>
     <div class="tooltip">Press Enter</div>
 
-    <div class="wall empty"></div>
+    <div class="wall empty">{{ wall_text|safe }}</div>
 </div>
 
 </body>
