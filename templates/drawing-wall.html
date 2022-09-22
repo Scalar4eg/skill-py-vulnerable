@@ -12,8 +12,8 @@
     <h1>Draw on the wall</h1>
     <input type="text" name="drawing" placeholder="Your text goes here" />
     <div class="tooltip">Press Enter</div>
-
-    <div class="wall empty"></div>
+    <!-- STORED XSS -->
+    <div class="wall">{{ wall_text|safe }}</div>
 </div>
 
 </body>

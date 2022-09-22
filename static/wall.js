@@ -5,11 +5,7 @@ window.addEventListener('load', (event) => {
         if (event.code == "Enter") {
             const newValue = input.value.trim();
             wall.innerHTML = newValue;
-            if (newValue == "") {
-                wall.classList.add('empty')
-            } else {
-                wall.classList.remove('empty')
-            }
+            fetch('/api/wall?wall_text=' + newValue)
         }
     });
 })

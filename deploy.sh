@@ -1,7 +1,7 @@
 # gcloud upload, make sure to run gcloud init first
-HOSTNAME=vulnerable-app1
+HOSTNAME=vulnerable-app2
 echo "[SETUP]"
-gcloud compute ssh root@$HOSTNAME -- "mkdir app && cd app && python3 -m pip install flask python-dotenv"
+gcloud compute ssh root@$HOSTNAME --zone=us-central1-a  -- "mkdir app && cd app && python3 -m pip install flask python-dotenv"
 echo "[COPY FILES]"
 gcloud compute scp \
   ./static \
@@ -9,4 +9,4 @@ gcloud compute scp \
   ./*.py \
   ./.env \
   ./run.sh \
-  root@$HOSTNAME:~/app --recurse
+  root@$HOSTNAME:~/app --zone=us-central1-a  --recurse
